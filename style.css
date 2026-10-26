@@ -1,0 +1,583 @@
+/* ============================================================
+   90s FBI TERMINAL — Heavy CRT + Windows 98 desktop
+   ============================================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  font-family: 'MS Sans Serif', Tahoma, sans-serif;
+}
+
+/* ---------- HEAVY CRT EFFECTS ---------- */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 9991;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.28) 2px,
+    rgba(0, 0, 0, 0.28) 4px
+  );
+  animation: scan 9s linear infinite;
+}
+
+@keyframes scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100px; }
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 9989;
+  pointer-events: none;
+  box-shadow: inset 0 0 120px rgba(0, 40, 0, 0.25);
+}
+
+/* subtle screen flicker */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9992;
+  pointer-events: none;
+  background: rgba(0, 255, 70, 0.015);
+  animation: flicker 0.12s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* ============================================================
+   BOOT / LOGIN SCREEN  (green on pure black)
+   ============================================================ */
+.boot {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #33ff66;
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 22px;
+  line-height: 1.35;
+  text-shadow: 0 0 6px #33ff66, 0 0 12px rgba(51, 255, 102, 0.4);
+}
+
+.boot-inner {
+  width: min(640px, 92vw);
+  position: relative;
+}
+
+.terminal {
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 320px;
+  margin: 0;
+}
+
+.cursor {
+  display: inline;
+  animation: blink 0.65s step-end infinite;
+  color: #33ff66;
+  text-shadow: 0 0 8px #33ff66;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.boot.fade {
+  animation: bootFade 1.4s ease forwards;
+}
+
+@keyframes bootFade {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* ============================================================
+   WINDOWS 98 DESKTOP
+   ============================================================ */
+.desktop {
+  position: fixed;
+  inset: 0;
+  background: #008080 url('wallpaper.png') center center / cover no-repeat;
+  display: none;          /* hidden until boot finishes */
+  z-index: 10;
+}
+
+.desktop.show {
+  display: block;
+}
+
+/* Desktop icons */
+.icons {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.icon {
+  width: 72px;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000, 0 0 4px #000;
+  font-size: 11px;
+  cursor: default;
+  user-select: none;
+}
+
+.icon-img {
+  font-size: 32px;
+  line-height: 1.1;
+  margin-bottom: 2px;
+  filter: drop-shadow(1px 1px 0 #000);
+}
+
+.icon-text {
+  line-height: 1.15;
+  background: rgba(0,0,0,0.35);
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+
+.icon:hover .icon-text {
+  background: #000080;
+  outline: 1px dotted #fff;
+}
+
+/* ============================================================
+   WINDOW (Windows 98 style)
+   ============================================================ */
+.window {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(860px, 96vw);
+  height: min(640px, 84vh);
+  background: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 1px 1px 0 #000;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+
+/* Title bar – classic Win98 gradient */
+.titlebar {
+  background: linear-gradient(to right, #000080, #1084d0);
+  color: #fff;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3px 0 4px;
+  font-weight: bold;
+  font-size: 12px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.titlebar-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.win-icon { font-size: 13px; }
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.titlebar-right {
+  display: flex;
+  gap: 2px;
+}
+
+.tb-btn {
+  width: 16px;
+  height: 14px;
+  background: #c0c0c0;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #000;
+  padding: 0;
+}
+
+.tb-btn:active {
+  border-top: 1px solid #404040;
+  border-left: 1px solid #404040;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.tb-btn.close {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+/* Menu bar */
+.menubar {
+  background: #c0c0c0;
+  padding: 1px 4px;
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  border-bottom: 1px solid #808080;
+  flex-shrink: 0;
+}
+
+.menubar span {
+  padding: 2px 5px;
+  cursor: default;
+}
+
+.menubar span:hover {
+  background: #000080;
+  color: #fff;
+}
+
+/* Toolbar */
+.toolbar {
+  background: #c0c0c0;
+  padding: 3px 4px;
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid #808080;
+  flex-shrink: 0;
+}
+
+.tool {
+  padding: 2px 8px;
+  border: 1px solid transparent;
+  cursor: default;
+  font-size: 11px;
+}
+
+.tool:hover {
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
+}
+
+/* Address bar */
+.address {
+  background: #c0c0c0;
+  padding: 3px 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.addr-label {
+  font-size: 11px;
+}
+
+.addr-box {
+  flex: 1;
+  background: #fff;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 2px 5px;
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  font-size: 11px;
+  color: #000;
+}
+
+/* Content area – dark log */
+.content {
+  flex: 1;
+  background: #0a0c10;
+  margin: 3px 3px 0;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.4rem 1.6rem 2rem;
+  color: #d0d4dc;
+  font-family: 'Source Serif 4', Georgia, serif;
+  line-height: 1.7;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1a1e26;
+}
+
+.content::-webkit-scrollbar { width: 14px; }
+.content::-webkit-scrollbar-track { background: #1a1e26; }
+.content::-webkit-scrollbar-thumb { background: #555; border: 1px solid #333; }
+
+/* Status bar */
+.statusbar {
+  background: #c0c0c0;
+  border-top: 1px solid #fff;
+  padding: 2px 6px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  color: #222;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   LOG CONTENT STYLING
+   ============================================================ */
+.log-top {
+  text-align: center;
+  margin-bottom: 1.4rem;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.classified {
+  color: #c9a227;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.25rem;
+}
+
+.fbi {
+  color: #7a8499;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+}
+
+.agent-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid #1e2430;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.agent-name {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #e6eaf0;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.agent-role {
+  font-size: 0.75rem;
+  color: #8b93a7;
+  margin-bottom: 0.1rem;
+}
+
+.agent-badge {
+  font-size: 0.7rem;
+  color: #5c6578;
+}
+
+.file-block {
+  text-align: right;
+}
+
+.file-no {
+  font-size: 0.8rem;
+  color: #6b9bb8;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.file-type {
+  font-size: 0.7rem;
+  color: #8b93a7;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.1rem;
+}
+
+.file-date {
+  font-size: 0.75rem;
+  color: #5c6578;
+}
+
+.sep {
+  text-align: center;
+  color: #2a3140;
+  font-size: 0.65rem;
+  letter-spacing: 0.6em;
+  margin: 1rem 0 1.5rem;
+}
+
+.subject {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #e6eaf0;
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+
+.entry-info {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: #5c6578;
+  margin-bottom: 1.6rem;
+}
+
+.essay p {
+  margin-bottom: 1.15rem;
+  font-size: 1rem;
+  color: #c8ced8;
+}
+
+.essay .lead {
+  font-size: 1.05rem;
+  color: #8b93a7;
+  border-left: 3px solid #4a7a94;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.essay em { font-style: italic; }
+.essay strong { color: #e6eaf0; font-weight: 600; }
+
+.end-entry {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  color: #8b93a7;
+  margin-top: 2.2rem;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   TASKBAR
+   ============================================================ */
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  gap: 3px;
+  z-index: 50;
+  font-size: 11px;
+}
+
+.start {
+  height: 22px;
+  padding: 0 6px 0 3px;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #404040;
+  border-bottom: 2px solid #404040;
+  font-weight: bold;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.start:active {
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.start-flag { font-size: 14px; }
+
+.task-divider {
+  width: 2px;
+  height: 20px;
+  background: #808080;
+  border-right: 1px solid #fff;
+  margin: 0 3px;
+}
+
+.task-btn {
+  height: 22px;
+  padding: 0 10px;
+  background: #c0c0c0;
+  border-top: 2px solid #404040;
+  border-left: 2px solid #404040;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  max-width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.task-btn.active {
+  background: #b8b8b8;
+}
+
+.clock {
+  margin-left: auto;
+  height: 22px;
+  padding: 0 8px;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .window {
+    top: 8px;
+    width: 98vw;
+    height: 80vh;
+  }
+  .icons { display: none; }
+  .agent-block { flex-direction: column; gap: 0.8rem; }
+  .file-block { text-align: left; }
+  .subject { font-size: 1.2rem; }
+}

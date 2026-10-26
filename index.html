@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Terminal — Bethany Treloar</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Heavy CRT effects -->
+  <div class="crt"></div>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+
+  <!-- ========== BOOT / LOGIN SCREEN ========== -->
+  <div id="boot" class="boot">
+    <div class="boot-inner">
+      <pre id="terminal" class="terminal"></pre>
+      <span id="cursor" class="cursor">█</span>
+    </div>
+  </div>
+
+  <!-- ========== WINDOWS 98 DESKTOP ========== -->
+  <div id="desktop" class="desktop">
+
+    <!-- Desktop icons -->
+    <div class="icons">
+      <div class="icon">
+        <div class="icon-img">🖥️</div>
+        <div class="icon-text">My Computer</div>
+      </div>
+      <div class="icon">
+        <div class="icon-img">📁</div>
+        <div class="icon-text">Personal Log</div>
+      </div>
+      <div class="icon">
+        <div class="icon-img">🌐</div>
+        <div class="icon-text">Internet Explorer</div>
+      </div>
+      <div class="icon">
+        <div class="icon-img">🗑️</div>
+        <div class="icon-text">Recycle Bin</div>
+      </div>
+    </div>
+
+    <!-- Main open window -->
+    <div class="window" id="main-window">
+      <div class="titlebar">
+        <div class="titlebar-left">
+          <span class="win-icon">📄</span>
+          <span class="title">Personal Log — Bethany Treloar — Student Terminal</span>
+        </div>
+        <div class="titlebar-right">
+          <button class="tb-btn">_</button>
+          <button class="tb-btn">□</button>
+          <button class="tb-btn close">×</button>
+        </div>
+      </div>
+
+      <div class="menubar">
+        <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Help</span>
+      </div>
+
+      <div class="toolbar">
+        <span class="tool">Back</span>
+        <span class="tool">Forward</span>
+        <span class="tool">Stop</span>
+        <span class="tool">Refresh</span>
+        <span class="tool">Home</span>
+      </div>
+
+      <div class="address">
+        <span class="addr-label">Address</span>
+        <div class="addr-box">C:\Students\Treloar\Logs\X-41827.htm</div>
+      </div>
+
+      <!-- THE ACTUAL ASSIGNMENT / BLOG CONTENT -->
+      <div class="content">
+        <div class="log-top">
+          <div class="classified">STUDENT LOG — PRIVATE</div>
+          <div class="fbi">PERSONAL RESEARCH LOG</div>
+        </div>
+
+        <div class="agent-block">
+          <div>
+            <div class="agent-name">BETHANY TRELOAR</div>
+            <div class="agent-role">Student</div>
+            <div class="agent-badge">Student No. 24738284</div>
+          </div>
+          <div class="file-block">
+            <div class="file-no">FILE NO. X-41827</div>
+            <div class="file-type">PERSONAL LOG</div>
+            <div class="file-date">26 OCTOBER 2026</div>
+          </div>
+        </div>
+
+        <div class="sep">◆ ◆ ◆</div>
+
+        <h1 class="subject">SUBJECT: Atlantis — Myth, Memory, and the Persistence of a Lost World</h1>
+        <div class="entry-info">Entry 001 • Classification: Theoretical / Historical Analysis</div>
+
+        <div class="essay">
+          <!-- ========== REPLACE EVERYTHING BELOW WITH YOUR 1500-WORD ESSAY ========== -->
+
+          <p class="lead">
+            The following is a personal analytical log concerning the persistent cultural and scientific fascination with the legend of Atlantis. This entry is a personal research log. It is an attempt to examine, with clinical detachment, a story that has refused to die for over two thousand years.
+          </p>
+
+          <p>
+            <em>This is placeholder text. Delete from here down to the closing signature and paste your full 1500-word essay. You can use normal paragraphs, headings, italics and bold.</em>
+          </p>
+
+          <p>
+            Plato first recorded the story in the dialogues <em>Timaeus</em> and <em>Critias</em>, presenting it as a historical account passed down through Egyptian priests to the Athenian lawmaker Solon. According to the narrative, Atlantis was a powerful island civilization located beyond the Pillars of Hercules that sank into the sea in a single day and night of catastrophic earthquakes and floods roughly nine thousand years before Solon’s time.
+          </p>
+
+          <p>
+            Subsequent centuries have produced an extraordinary volume of speculation, pseudoscience, and genuine scholarly inquiry. From Ignatius Donnelly’s 1882 bestseller to modern sonar surveys of the Mediterranean and Atlantic floors, the search continues. What interests me is not merely whether a historical Atlantis existed, but why the idea remains so compelling to both the scientific mind and the popular imagination.
+          </p>
+
+          <p>
+            Insert your complete essay in this area. The window will scroll so the full text is readable while the Windows 98 desktop and taskbar stay visible.
+          </p>
+
+          <!-- ========== END OF ESSAY ========== -->
+
+          <div class="end-entry">
+            End of entry.<br>
+            — B. Treloar
+          </div>
+        </div>
+      </div>
+
+      <div class="statusbar">
+        <div class="status-left">Secure connection established</div>
+        <div class="status-right">Done</div>
+      </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+      <button class="start">
+        <span class="start-flag">⊞</span> Start
+      </button>
+      <div class="task-divider"></div>
+      <div class="task-btn active">
+        <span>📄</span> Personal Log
+      </div>
+      <div class="clock" id="clock">10:55 AM</div>
+    </div>
+  </div>
+
+  <script src="boot.js"></script>
+</body>
+</html>
